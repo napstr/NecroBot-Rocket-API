@@ -124,8 +124,10 @@ namespace PokemonGo.RocketAPI.Helpers
             var outputLength = 32 + bytes.Length + (256 - (bytes.Length % 256));
             var ptr = Marshal.AllocHGlobal(outputLength);
             var ptrOutput = Marshal.AllocHGlobal(outputLength);
-            FillMemory(ptr, (uint)outputLength, 0);
-            FillMemory(ptrOutput, (uint)outputLength, 0);
+            //FillMemory(ptr, (uint)outputLength, 0); //this is just filling a bunch of zeroes at a certain place in memory
+            Marshal.Copy(new byte[(uint)outputLength], 0, ptr, (int)outputLength);
+            //FillMemory(ptrOutput, (uint)outputLength, 0);
+            Marshal.Copy(new byte[(uint)outputLength], 0, ptrOutput, (int)outputLength);
             Marshal.Copy(bytes, 0, ptr, bytes.Length);
             try
             {
